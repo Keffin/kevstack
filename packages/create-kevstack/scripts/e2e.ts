@@ -1,6 +1,7 @@
 /**
  * End-to-end check: creates a project with the built CLI (dist/), then runs that project's own
  * typecheck, lint and unit tests. Run via `pnpm e2e` (builds first).
+ * This is to verify that the generated files are actually valid.
  */
 import { execFileSync } from "node:child_process";
 import { mkdtemp, rm } from "node:fs/promises";
