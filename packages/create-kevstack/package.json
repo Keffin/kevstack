@@ -1,11 +1,11 @@
 {
   "name": "create-kevstack",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Scaffold a full-stack TypeScript project from the kevstack template",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keffin/kevstack.git",
+    "url": "git+https://github.com/Keffin/kevstack.git",
     "directory": "packages/create-kevstack"
   },
   "bin": {
