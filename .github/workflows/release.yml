@@ -23,6 +23,8 @@ jobs:
           node-version: 24
           cache: pnpm
           registry-url: https://registry.npmjs.org
+      # Pin an npm version known to support `npm stage`, rather than whatever Node bundles
+      - run: npm install -g npm@11.17.0
       - run: pnpm install --frozen-lockfile
       - name: Check the release tag matches package.json
         run: |
@@ -32,5 +34,6 @@ jobs:
             exit 1
           fi
       - run: pnpm test
-      # prepublishOnly builds the CLI and syncs the templates
-      - run: npm publish --access public
+      - run: pnpm build
+      # Staged versions only go live once approved with 2FA: `npm stage approve <stage-id>`
+      - run: npm stage publish . --access public
