@@ -1,0 +1,20 @@
+# Repo-wide ignores. Templates ship their own `_gitignore`, renamed to `.gitignore` on scaffold
+# (npm strips `.gitignore` files from published packages).
+
+node_modules
+dist
+.turbo
+coverage
+*.tsbuildinfo
+*.log
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+.env
+.env.*
+!.env.example
+
+# TanStack Router
+.tanstack
