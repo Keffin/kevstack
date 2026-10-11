@@ -1,0 +1,4 @@
+# templates/ is deliberately not part of this workspace: each template is a standalone
+# project with its own pnpm workspace.
+packages:
+  - "packages/*"

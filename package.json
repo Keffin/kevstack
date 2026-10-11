@@ -1,0 +1,22 @@
+{
+  "name": "kevstack",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "pnpm --filter create-kevstack build",
+    "dev": "pnpm --filter create-kevstack dev",
+    "test": "pnpm --filter create-kevstack test",
+    "typecheck": "pnpm --filter create-kevstack typecheck",
+    "e2e": "pnpm --filter create-kevstack e2e",
+    "lint": "oxlint packages",
+    "lint:fix": "oxlint packages --fix"
+  },
+  "devDependencies": {
+    "oxlint": "^1.87.0"
+  }
+}

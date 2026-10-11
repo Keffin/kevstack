@@ -1,0 +1,44 @@
+{
+  "name": "create-kevstack",
+  "version": "0.0.0",
+  "description": "Scaffold a full-stack TypeScript project from the kevstack template",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keffin/kevstack.git",
+    "directory": "packages/create-kevstack"
+  },
+  "bin": {
+    "create-kevstack": "./dist/index.mjs",
+    "kevstack": "./dist/index.mjs"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "sync-templates": "node scripts/sync-templates.ts",
+    "build": "pnpm sync-templates && tsdown",
+    "dev": "pnpm sync-templates && node src/index.ts",
+    "typecheck": "tsc",
+    "test": "pnpm sync-templates && vitest run",
+    "test:watch": "vitest",
+    "e2e": "pnpm build && node scripts/e2e.ts",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.8.1",
+    "cleye": "^2.7.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsdown": "^0.23.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "kevstack",
+  "description": "React + TanStack, tRPC + Express, Drizzle + Postgres, Better Auth monorepo",
+  "tokens": {
+    "kebab": "kevstack-template",
+    "snake": "kevstack_template"
+  },
+  "env": {
+    "from": ".env.example",
+    "to": ".env",
+    "secrets": ["BETTER_AUTH_SECRET"]
+  },
+  "exclude": ["template.json"]
+}

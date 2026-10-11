@@ -1,5 +1,7 @@
-# Repo-wide ignores. Templates ship their own `_gitignore`, renamed to `.gitignore` on scaffold
-# (npm strips `.gitignore` files from published packages).
+# Repo-wide ignores. Each template also ships its own .gitignore for scaffolded projects.
+
+# create-kevstack: synced copy of templates/ that ships in the npm package (scripts/sync-templates.ts)
+/packages/create-kevstack/templates/
 
 node_modules
 dist
