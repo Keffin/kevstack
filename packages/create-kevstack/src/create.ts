@@ -46,10 +46,7 @@ interface SummaryLine {
   text: string;
 }
 
-export async function create(
-  options: CreateOptions,
-  context: CreateContext,
-): Promise<void> {
+export async function create(options: CreateOptions, context: CreateContext): Promise<void> {
   const out = { output: context.output };
   const template = await getTemplate(DEFAULT_TEMPLATE);
 
@@ -112,9 +109,7 @@ export async function create(
   p.note(steps.join("\n"), "Next steps", out);
 
   if (failed.length > 0) {
-    throw new Error(
-      `Project created, but these steps failed: ${failed.join(", ")}`,
-    );
+    throw new Error(`Project created, but these steps failed: ${failed.join(", ")}`);
   }
   p.outro("Happy hacking!", out);
 }
@@ -130,9 +125,7 @@ async function resolvePlan(
   let rawName = options.name;
   if (!rawName) {
     if (!interactive) {
-      throw new Error(
-        "A project name is required, e.g. `create-kevstack my-app`",
-      );
+      throw new Error("A project name is required, e.g. `create-kevstack my-app`");
     }
     rawName = await ask(
       p.text({
@@ -167,8 +160,7 @@ async function resolvePlan(
         p.text({
           message: "Parent directory (the project folder is created inside it)",
           placeholder: "~/code",
-          validate: (value) =>
-            value?.trim() ? undefined : "Enter a directory",
+          validate: (value) => (value?.trim() ? undefined : "Enter a directory"),
           ...out,
         }),
       );
@@ -199,8 +191,7 @@ async function resolvePlan(
     flag: options.install,
     available: hasCommand("pnpm"),
     question: "Install dependencies with pnpm?",
-    missing:
-      "pnpm not found; skipping install (see https://pnpm.io/installation)",
+    missing: "pnpm not found; skipping install (see https://pnpm.io/installation)",
     context,
   });
 
@@ -225,7 +216,7 @@ async function decide(args: {
     return false;
   }
 
-  if (flag === true || !context.interactive){
+  if (flag === true || !context.interactive) {
     return true;
   }
 
@@ -245,11 +236,7 @@ async function ask<T>(prompt: Promise<T>): Promise<Exclude<T, symbol>> {
   return value as Exclude<T, symbol>;
 }
 
-export function resolveTarget(
-  parent: string | undefined,
-  name: ProjectName,
-  cwd: string,
-): string {
+export function resolveTarget(parent: string | undefined, name: ProjectName, cwd: string): string {
   return resolve(cwd, expandHome(parent?.trim() || "."), name.kebab);
 }
 
@@ -268,9 +255,8 @@ function expandHome(path: string): string {
 function displayPath(dir: string, cwd: string): string {
   const rel = relative(cwd, dir);
 
-  return rel && !rel.startsWith("..")
-    ? rel
-    : dir;
+  return rel && !rel.startsWith("..") ? rel : dir;
 }
 
-const messageOf = (error: unknown): string => error instanceof Error ? error.message : String(error);
+const messageOf = (error: unknown): string =>
+  error instanceof Error ? error.message : String(error);

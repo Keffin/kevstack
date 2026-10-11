@@ -2,7 +2,6 @@
   "name": "create-kevstack",
   "version": "0.0.0",
   "description": "Scaffold a full-stack TypeScript project from the kevstack template",
-  "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -17,9 +16,7 @@
     "dist",
     "templates"
   ],
-  "engines": {
-    "node": ">=24"
-  },
+  "type": "module",
   "scripts": {
     "sync-templates": "node scripts/sync-templates.ts",
     "build": "pnpm sync-templates && tsdown",
@@ -40,5 +37,8 @@
     "tsdown": "^0.23.1",
     "typescript": "^7.0.2",
     "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

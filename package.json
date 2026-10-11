@@ -14,9 +14,12 @@
     "typecheck": "pnpm --filter create-kevstack typecheck",
     "e2e": "pnpm --filter create-kevstack e2e",
     "lint": "oxlint packages",
-    "lint:fix": "oxlint packages --fix"
+    "lint:fix": "oxlint packages --fix",
+    "format": "oxfmt packages",
+    "format:check": "oxfmt --check packages"
   },
   "devDependencies": {
+    "oxfmt": "^0.72.0",
     "oxlint": "^1.87.0"
   }
 }

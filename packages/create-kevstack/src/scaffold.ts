@@ -1,4 +1,14 @@
-import { chmod, mkdir, mkdtemp, readdir, readFile, rename, rm, rmdir, writeFile } from "node:fs/promises";
+import {
+  chmod,
+  mkdir,
+  mkdtemp,
+  readdir,
+  readFile,
+  rename,
+  rm,
+  rmdir,
+  writeFile,
+} from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 import { renderEnv } from "./env.ts";
 import type { ProjectName } from "./project-name.ts";
@@ -28,7 +38,10 @@ export interface ScaffoldResult {
  * project name. Everything is written to a staging directory first and moved into place at the
  * end, so a failure never leaves a half-written project behind.
  */
-export async function scaffold(template: Template, options: ScaffoldOptions): Promise<ScaffoldResult> {
+export async function scaffold(
+  template: Template,
+  options: ScaffoldOptions,
+): Promise<ScaffoldResult> {
   const target = resolve(options.targetDir);
   const targetExists = await assertTargetUsable(target);
 
@@ -74,7 +87,11 @@ export async function assertTargetUsable(target: string): Promise<boolean> {
   }
 }
 
-async function writeTemplateFile(root: string, file: TemplateFile, replace: (text: string) => string) {
+async function writeTemplateFile(
+  root: string,
+  file: TemplateFile,
+  replace: (text: string) => string,
+) {
   const segments = file.path.split("/");
   if (file.path.startsWith("/") || segments.some((s) => s === ".." || s === "")) {
     throw new Error(`Invalid template path "${file.path}"`);
@@ -93,6 +110,9 @@ function isText(data: Buffer): boolean {
 
 function createReplacer(replacements: Record<string, string>): (text: string) => string {
   const keys = Object.keys(replacements).toSorted((a, b) => b.length - a.length);
-  const pattern = new RegExp(keys.map((key) => key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "g");
+  const pattern = new RegExp(
+    keys.map((key) => key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"),
+    "g",
+  );
   return (text) => text.replace(pattern, (match) => replacements[match] ?? match);
 }

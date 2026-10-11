@@ -27,7 +27,10 @@ const fixture = (): Template => ({
     file("docs/kevstack-template.md", "# kevstack-template\n"),
     file("bin/tool", "#!/bin/sh\necho kevstack-template\n", 0o755),
     file("logo.png", Buffer.from("\x89PNG\x00kevstack-template", "latin1")),
-    file(".env.example", "DATABASE_URL=postgres://localhost/kevstack_template\nAUTH_SECRET=change-me\n"),
+    file(
+      ".env.example",
+      "DATABASE_URL=postgres://localhost/kevstack_template\nAUTH_SECRET=change-me\n",
+    ),
   ],
 });
 
@@ -55,8 +58,12 @@ describe("scaffold", () => {
 
     // Assert
     expect(await readFile(join(target, "package.json"), "utf8")).toBe('{"name":"daniels-project"}');
-    expect(await readFile(join(target, "docker-compose.yaml"), "utf8")).toBe("POSTGRES_DB: daniels_project\n");
-    expect(await readFile(join(target, "docs/daniels-project.md"), "utf8")).toBe("# daniels-project\n");
+    expect(await readFile(join(target, "docker-compose.yaml"), "utf8")).toBe(
+      "POSTGRES_DB: daniels_project\n",
+    );
+    expect(await readFile(join(target, "docs/daniels-project.md"), "utf8")).toBe(
+      "# daniels-project\n",
+    );
   });
 
   it("leaves binary files untouched", async () => {

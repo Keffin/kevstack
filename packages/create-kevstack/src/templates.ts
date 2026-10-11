@@ -32,7 +32,9 @@ export const PACKAGED_TEMPLATES_DIR = fileURLToPath(new URL("../templates/", imp
 
 export async function loadTemplates(root: string = PACKAGED_TEMPLATES_DIR): Promise<Template[]> {
   const entries = await readdir(root, { withFileTypes: true }).catch(() => []);
-  const dirs = entries.filter((entry) => entry.isDirectory()).map((entry) => join(root, entry.name));
+  const dirs = entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => join(root, entry.name));
   if (dirs.length === 0) {
     throw new Error(`No templates found in ${root}. Run \`pnpm sync-templates\` first.`);
   }
@@ -44,8 +46,8 @@ export async function loadTemplates(root: string = PACKAGED_TEMPLATES_DIR): Prom
 export async function getTemplate(id: string, root?: string): Promise<Template> {
   const template = (await loadTemplates(root)).find((t) => t.manifest.id === id);
   if (!template) {
-    throw new Error(`Unknown template "${id}"`)
-  };
+    throw new Error(`Unknown template "${id}"`);
+  }
   return template;
 }
 

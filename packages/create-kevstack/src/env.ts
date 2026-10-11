@@ -28,7 +28,7 @@ export function renderEnv(
   });
 
   for (const key of remaining) {
-     lines.push(`${key}=${generate()}`);
+    lines.push(`${key}=${generate()}`);
   }
 
   return lines.join("\n");
