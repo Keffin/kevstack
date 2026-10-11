@@ -21,18 +21,27 @@ describe("kevstack template", () => {
     const target = join(parent, "daniels-project");
 
     // Act
-    const result = await scaffold(template, { name: ProjectName.parse("daniels-project"), targetDir: target });
+    const result = await scaffold(template, {
+      name: ProjectName.parse("daniels-project"),
+      targetDir: target,
+    });
 
     // Assert
     expect(result.env?.file).toBe(".env");
 
-    const exists = (path: string) => access(join(target, path)).then(() => true, () => false);
+    const exists = (path: string) =>
+      access(join(target, path)).then(
+        () => true,
+        () => false,
+      );
     const required = [".gitignore", ".env", ".env.example", "package.json", "pnpm-lock.yaml"];
     const unwanted = ["template.json", "_gitignore", "node_modules", "apps/web/dist"];
     expect(await Promise.all(required.map(exists))).toEqual(required.map(() => true));
     expect(await Promise.all(unwanted.map(exists))).toEqual(unwanted.map(() => false));
 
-    const pkg = JSON.parse(await readFile(join(target, "package.json"), "utf8")) as { name: string };
+    const pkg = JSON.parse(await readFile(join(target, "package.json"), "utf8")) as {
+      name: string;
+    };
     expect(pkg.name).toBe("daniels-project");
 
     const tokens = [template.manifest.tokens.kebab, template.manifest.tokens.snake];

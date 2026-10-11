@@ -15,7 +15,12 @@ export function pnpmInstall(dir: string): Promise<void> {
   return run("pnpm", ["install"], dir, "inherit");
 }
 
-function run(command: string, args: string[], cwd: string, stdio: "pipe" | "inherit"): Promise<void> {
+function run(
+  command: string,
+  args: string[],
+  cwd: string,
+  stdio: "pipe" | "inherit",
+): Promise<void> {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { cwd, stdio, shell });
     let stderr = "";
@@ -25,9 +30,13 @@ function run(command: string, args: string[], cwd: string, stdio: "pipe" | "inhe
     child.on("error", reject);
     child.on("close", (code) => {
       if (code === 0) {
-         resolve();
+        resolve();
       } else {
-         reject(new Error(`${command} ${args.join(" ")} exited with code ${code}${stderr ? `: ${stderr.trim()}` : ""}`));
+        reject(
+          new Error(
+            `${command} ${args.join(" ")} exited with code ${code}${stderr ? `: ${stderr.trim()}` : ""}`,
+          ),
+        );
       }
     });
   });

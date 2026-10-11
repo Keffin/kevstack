@@ -37,7 +37,9 @@ describe("create (non-interactive)", () => {
     // Assert
     await expect(stat(join(parent, "daniels-project", "package.json"))).resolves.toBeDefined();
     await expect(stat(join(parent, "daniels-project", ".git"))).rejects.toThrow(/ENOENT/);
-    expect(output.text).toContain("Generated .env from .env.example with a fresh BETTER_AUTH_SECRET");
+    expect(output.text).toContain(
+      "Generated .env from .env.example with a fresh BETTER_AUTH_SECRET",
+    );
     expect(output.text).toContain("cd daniels-project");
     expect(output.text).toContain("pnpm install");
   });

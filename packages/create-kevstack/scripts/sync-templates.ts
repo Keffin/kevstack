@@ -15,13 +15,18 @@ import { MANIFEST_FILE } from "../src/templates.ts";
 
 const packageDir = fileURLToPath(new URL("..", import.meta.url));
 const outDir = join(packageDir, "templates");
-const repoRoot = execFileSync("git", ["rev-parse", "--show-toplevel"], { cwd: packageDir, encoding: "utf8" }).trim();
+const repoRoot = execFileSync("git", ["rev-parse", "--show-toplevel"], {
+  cwd: packageDir,
+  encoding: "utf8",
+}).trim();
 const sourceDir = join(repoRoot, "templates");
 
 await rm(outDir, { recursive: true, force: true });
 
 const entries = await readdir(sourceDir, { withFileTypes: true });
-await Promise.all(entries.filter((entry) => entry.isDirectory()).map((entry) => syncTemplate(entry.name)));
+await Promise.all(
+  entries.filter((entry) => entry.isDirectory()).map((entry) => syncTemplate(entry.name)),
+);
 
 async function syncTemplate(name: string): Promise<void> {
   const templateDir = join(sourceDir, name);
@@ -35,10 +40,14 @@ async function syncTemplate(name: string): Promise<void> {
 }
 
 async function copyTracked(from: string, to: string): Promise<number> {
-  const listing = execFileSync("git", ["ls-files", "-z", "--cached", "--others", "--exclude-standard", "--", "."], {
-    cwd: from,
-    encoding: "utf8",
-  });
+  const listing = execFileSync(
+    "git",
+    ["ls-files", "-z", "--cached", "--others", "--exclude-standard", "--", "."],
+    {
+      cwd: from,
+      encoding: "utf8",
+    },
+  );
   const files = [...new Set(listing.split("\0").filter(Boolean))];
 
   const copied = await Promise.all(
